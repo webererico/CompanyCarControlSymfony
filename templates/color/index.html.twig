@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Colors
+{% endblock %}
+
+{% block body %}
+	<h1>
+		Colors List
+	</h1>
+    	{% for flashMessage in app.session.flashbag.get('success') %}
+		<div class="alert alert-success">
+			{{flashMessage}}
+		</div>
+
+	{% endfor %}
+	{% for flashMessage in app.session.flashbag.get('warning') %}
+		<div class="alert alert-success">
+			{{flashMessage}}
+		</div>
+
+	{% endfor %}
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<a href="{{path('color_create')}}" class="btn btn-primary pull-right">Add Color</a>
+		</div>
+	</div>
+	<table class="table table-hover table-striped mt-3">
+		<thead>
+			<tr>
+				<th>
+					ID
+				</th>
+				<th>
+					Color name
+				</th>
+				<th>
+					Actions
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for color in colors %}
+				<tr>
+					<td>
+						{{color.id}}</td>
+					<td>
+						{{color.name}}</td>
+					<td>
+						<a class="btn btn-sm btn-success" href="{{path('color_edit',{'id': color.id })}}">
+							<i class="fa fa-pencil">Edit</i>
+						</a>
+						<a class="btn btn-sm btn-danger" href="{{path('color_delete', {'id': color.id})}}">
+							<i class="fa fa-trash">Delete</i>
+						</a>
+					</td>
+
+
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">Nenhum registro encontrado!</td>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+{% endblock %}

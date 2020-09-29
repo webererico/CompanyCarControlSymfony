@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bug Report{% endblock %}
+
+{% block body %}
+    {# <h2> {{categories}} </h2> #}
+    {% for category in categories %}
+        <h2> {{category | striptags }} </h2>
+    {% endfor %}
+
+
+{% endblock %}

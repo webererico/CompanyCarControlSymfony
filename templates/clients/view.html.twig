@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}View Client
+{% endblock %}
+
+{% block body %}
+	<h1>View Client
+		<small>{{client.name}}
+		</small>
+	</h1>
+	<table class="table table-stripped">
+		<tr>
+			<th>ID</th>
+			<td>
+				{{client.id}}</td>
+		</tr>
+		<tr>
+			<th>Name</th>
+			<td>
+				{{client.name}}</td>
+		</tr>
+		<tr>
+			<th>Email</th>
+			<td>
+				{{client.email}}</td>
+		</tr>
+		<tr>
+			<th>Birth Date</th>
+			<td>
+				{{client.birthDate |date("d/m/Y")}}</td>
+		</tr>
+		<tr>
+			<th>CPF</th>
+			<td>
+				{{client.cpf}}</td>
+		</tr>
+
+		{% if client.fkAdress != null %}
+		</table>
+		<h2>
+			Adress
+		</h2>
+		<table class="table table-stripped">
+			<tr>
+				<th>Street</th>
+				<td>
+					{{client.fkAdress.street}}</td>
+			</tr>
+			<tr>
+				<th>Number</th>
+				<td>
+					{{client.fkAdress.number}}</td>
+			</tr>
+			<tr>
+				<th>Complement</th>
+				<td>
+					{{client.fkAdress.complement}}</td>
+			</tr>
+			<tr>
+				<th>City</th>
+				<td>
+					{{client.fkAdress.fkCity.name}}</td>
+			</tr>
+			<tr>
+				<th>State</th>
+				<td>
+					{{client.fkAdress.state}}</td>
+			</tr>
+
+		</table>
+	{% else %}
+		<h3>
+			Address not found
+		</h3>
+	{% endif %}
+
+
+{% endblock %}

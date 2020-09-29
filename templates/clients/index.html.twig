@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clients
+{% endblock %}
+
+{% block body %}
+	{% for flashMessage in app.session.flashbag.get('success') %}
+		<div class="alert alert-success">
+			{{flashMessage}}
+		</div>
+
+	{% endfor %}
+	{% for flashMessage in app.session.flashbag.get('warning') %}
+		<div class="alert alert-success">
+			{{flashMessage}}
+		</div>
+
+	{% endfor %}
+	<h1>
+		Clients List
+	</h1>
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<a href="{{path('client_create')}}" class="btn btn-primary pull-right">Add Client</a>
+		</div>
+	</div>
+	<table class="table table-hover table-striped mt-3">
+		<thead>
+			<tr>
+				<th>
+					ID
+				</th>
+				<th>
+					Name
+				</th>
+				<th>
+					Birth Date
+				</th>
+				<th>
+					E-mail
+				</th>
+				<th> Actions </th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for client in clients %}
+				<tr>
+					<td>
+						{{client.id}}</td>
+					<td>
+						<a href="{{path('view_client', {'id': client.id})}}">
+							{{client.name}}</a>
+					</td>
+					<td>
+						{{client.birthDate |date("d/m/Y")}}</td>
+					<td>
+						{{client.email}}</td>
+							<td>
+						<a class="btn btn-sm btn-primary" href="{{path('client_edit',{'id': client.id })}}">
+							<i class="fa fa-pencil">Edit Client</i>
+						</a>
+						<a class="btn btn-sm btn-danger" href="{{path('client_delete', {'id': client.id})}}">
+							<i class="fa fa-pencil">Delete Client</i>
+						</a>
+						<a class="btn btn-sm btn-success" href="{{path('car_client', {'id': client.id})}}">
+							<i class="fa fa-eye">View cars</i>
+						</a>
+					</td>
+
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">Nenhum registro encontrado!</td>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+{% endblock %}

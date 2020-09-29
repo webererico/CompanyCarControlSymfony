@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cars
+{% endblock %}
+
+{% block body %}
+	<h1>
+		Cars List 
+		{% if client != null %}
+			<small> Owner {{client.name}}</small>
+		{% endif %}
+		 
+	</h1>
+		{% for flashMessage in app.session.flashbag.get('success') %}
+		<div class="alert alert-success">
+			{{flashMessage}}
+		</div>
+
+	{% endfor %}
+	{% for flashMessage in app.session.flashbag.get('warning') %}
+		<div class="alert alert-success">
+			{{flashMessage}}
+		</div>
+
+	{% endfor %}
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<a href="{{path('car_create')}}" class="btn btn-primary pull-right">Add Car</a>
+		</div>
+	</div>
+	<table class="table table-hover table-striped mt-3">
+		<thead>
+			<tr>
+				<th>
+					ID
+				</th>
+				<th>
+					Model
+				</th>
+				<th>
+					Brand
+				</th>
+				<th>
+					Color
+				</th>
+				<th>
+					Kms
+				</th>
+				<th>
+					Owner
+				</th>
+				<th>
+					Actions
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for car in cars %}
+				<tr>
+					<td>
+						{{car.id}}</td>
+					<td>
+						{{car.model}}</td>
+					<td>
+						{{car.fk_brand.name}}</td>
+					<td>
+						{{car.fk_color.name}}</td>
+					<td>
+						{{car.kilometers}}
+					</td>
+					<td>
+						{{car.fk_client.name}}</td>
+					<td>
+						<a class="btn btn-sm btn-success" href="{{path('car_owner',{'id': car.id })}}">
+							<i class="fa fa-pencil">Alter Owner</i>
+						</a>
+						<a class="btn btn-sm btn-warning bt" href="{{path('car_edit', {'id': car.id})}}">
+							<i class="fa fa-pencil">Edit car</i>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">Nenhum registro encontrado!</td>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+{% endblock %}
